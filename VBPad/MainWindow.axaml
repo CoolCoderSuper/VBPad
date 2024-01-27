@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:AvalonEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
+        x:Class="VBPad.MainWindow"
+        Title="VBPad"
+		WindowState="Maximized"
+		Width="700" Height="500">
+	<Grid ColumnDefinitions="200,4,*" RowDefinitions="20,*">
+		<Menu>
+			<MenuItem Header="_File">
+				<MenuItem Header="_Exit" Click="btnExit_Click"/>
+			</MenuItem>
+			<MenuItem Header="_Format" Click="btnFormat_Click"/>
+		</Menu>
+		<TreeView Name="tvScripts" Grid.Row="1" Grid.Column="0">
+			<TreeView.ItemTemplate>
+				<TreeDataTemplate ItemsSource="{Binding Children}">
+					<TextBlock Text="{Binding Text}" />
+				</TreeDataTemplate>
+			</TreeView.ItemTemplate>
+		</TreeView>
+		<GridSplitter Grid.Column="1" Grid.Row="1"/>
+		<Grid Grid.Column="2" Grid.Row="1" RowDefinitions="*,4,200">
+			<AvalonEdit:TextEditor Name="txtCode"
+								   FontFamily="Cascadia Code,Consolas,Menlo,Monospace"
+								   HorizontalScrollBarVisibility="Auto"
+								   VerticalScrollBarVisibility="Visible"
+								   FontWeight="Light"
+								   FontSize="14" Grid.Row="0" TextChanged="txtCode_TextChanged"/>
+			<GridSplitter Grid.Row="1"/>
+			<TabControl Grid.Row="2">
+				<TabItem Header="Error List">
+					<DataGrid Name="dgDiagnostics" DoubleTapped="dgDiagnostics_DoubleTapped" IsReadOnly="True">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Code" Binding="{Binding ID}"/>
+							<DataGridTextColumn Header="Message" Binding="{Binding Message}"/>
+						</DataGrid.Columns>
+					</DataGrid>
+				</TabItem>
+			</TabControl>
+		</Grid>
+	</Grid>
+</Window>

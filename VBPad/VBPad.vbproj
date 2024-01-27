@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>VBPad</RootNamespace>
+    <TargetFrameworks>net8.0;net48</TargetFrameworks>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia.AvaloniaEdit" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0" />
+		<PackageReference Include="AvaloniaEdit.TextMate" Version="11.0.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.5.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces" Version="4.5.0" />
+		<PackageReference Include="TextMateSharp.Grammars" Version="1.0.55" />
+		<PackageReference Include="Avalonia" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0" />
+	</ItemGroup>
+	
+</Project>
