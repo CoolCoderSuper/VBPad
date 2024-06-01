@@ -6,6 +6,7 @@ Imports Microsoft.CodeAnalysis.FindSymbols
 Imports Microsoft.CodeAnalysis.Host.Mef
 Imports Microsoft.CodeAnalysis.Text
 Imports Microsoft.CodeAnalysis.VisualBasic
+Imports Microsoft.CodeAnalysis.VisualBasic.Syntax
 
 Public Class VBLanguageService
     Dim _host As MefHostServices
@@ -62,5 +63,11 @@ Public Class VBLanguageService
 
     Public Function GetSymbol(pos As Integer) As ISymbol
         Return SymbolFinder.FindSymbolAtPositionAsync(_document, pos).Result
+    End Function
+
+    Public Async Function GetBlocks() As Task(Of TextSpan())
+        Dim tree = Await _document.GetSyntaxRootAsync
+        Dim blockTypes As Type() = {GetType(ClassBlockSyntax), GetType(StructureBlockSyntax), GetType(MethodBlockSyntax), GetType(EnumBlockSyntax), GetType(MultiLineIfBlockSyntax), GetType(WithBlockSyntax), GetType(SelectBlockSyntax), GetType(ModuleBlockSyntax)}
+        Return tree.DescendantNodes.Where(Function(x) blockTypes.Any(Function(y) y.IsAssignableFrom(x.GetType))).Select(Function(x) x.Span).ToArray
     End Function
 End Class

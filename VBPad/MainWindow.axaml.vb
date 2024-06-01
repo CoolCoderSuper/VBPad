@@ -15,7 +15,7 @@ Partial Public Class MainWindow
     Private dgDiagnostics As DataGrid
     Private _generator As New ElementGenerator()
     Private _foldingManager As FoldingManager
-    Private _foldingStrategy As New BraceFoldingStrategy()
+    Private _foldingStrategy As SemanticFoldingStrategy
     Private _service As VBLanguageService
 
     Public Sub New()
@@ -67,6 +67,7 @@ Partial Public Class MainWindow
         txtCode.TextArea.TextView.LineTransformers.Add(New CommentHighlightTransformation(txtCode.TextArea, _service))
         txtCode.TextArea.TextView.LineTransformers.Add(New StringHighlightTransformation(txtCode.TextArea, _service))
         txtCode.TextArea.TextView.LineTransformers.Add(New DiagnosticTransformation(txtCode.TextArea, _service))
+        _foldingStrategy = New SemanticFoldingStrategy(_service)
         _foldingManager = FoldingManager.Install(txtCode.TextArea)
         dgDiagnostics.ItemsSource = New List(Of Diagnostic)
     End Sub
